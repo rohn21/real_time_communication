@@ -19,9 +19,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'real_time_communication.setting
 application = ProtocolTypeRouter(
     {
         "http": get_asgi_application(),
-        # "websocket": AllowedHostsOriginValidator(
-        #     AuthMiddlewareStack(URLRouter(websocket_urlpatterns))
-        # ),
+        # "websocket": AllowedHostsOriginValidator(  # new
+        #     TokenAuthMiddleware(URLRouter(routing.websocket_urlpatterns))),
         "websocket": AuthMiddlewareStack(
                 URLRouter(websocket_urlpatterns)
             ),
